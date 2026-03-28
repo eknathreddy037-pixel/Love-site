@@ -1,0 +1,146 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<title>Love Quiz 💖</title>
+
+<style>
+body {
+  font-family: 'Segoe UI', sans-serif;
+  background: linear-gradient(135deg, #ff9a9e, #fad0c4);
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  height: 100vh;
+  margin: 0;
+  overflow: hidden;
+}
+
+.container {
+  background: white;
+  padding: 30px;
+  border-radius: 25px;
+  width: 320px;
+  text-align: center;
+  box-shadow: 0 15px 40px rgba(0,0,0,0.2);
+}
+
+h2 {
+  color: #ff4d6d;
+}
+
+button {
+  padding: 12px;
+  width: 100%;
+  margin: 8px 0;
+  border: none;
+  border-radius: 20px;
+  background: #ff4d6d;
+  color: white;
+  font-size: 15px;
+  cursor: pointer;
+}
+
+.hidden {
+  display: none;
+}
+
+/* hearts */
+.heart {
+  position: fixed;
+  color: #ff4d6d;
+  animation: floatUp 4s linear infinite;
+}
+
+@keyframes floatUp {
+  from { transform: translateY(0); opacity: 1; }
+  to { transform: translateY(-700px); opacity: 0; }
+}
+</style>
+</head>
+
+<body>
+
+<!-- MUSIC -->
+<audio id="music" autoplay loop>
+  <source src="https://www.bensound.com/bensound-music/bensound-love.mp3" type="audio/mpeg">
+</audio>
+
+<div class="container">
+
+<!-- START -->
+<div id="start">
+  <h2>Love Quiz 💖</h2>
+  <button onclick="startQuiz()">Start 💘</button>
+</div>
+
+<!-- QUIZ -->
+<div id="quiz" class="hidden">
+  <h2 id="question"></h2>
+
+  <button onclick="answer()">Option 1</button>
+  <button onclick="answer()">Option 2</button>
+  <button onclick="answer()">Option 3</button>
+</div>
+
+<!-- RESULT -->
+<div id="result" class="hidden">
+  <h2>💖 You Passed 💖</h2>
+  <p>You are my forever person 💑💋</p>
+</div>
+
+</div>
+
+<script>
+
+let step = 0;
+
+const questions = [
+  "When did we first meet? 💕",
+  "Who loves more? 😏",
+  "Will you stay forever? 💖"
+];
+
+// start quiz
+function startQuiz(){
+  document.getElementById("start").classList.add("hidden");
+  document.getElementById("quiz").classList.remove("hidden");
+  loadQuestion();
+}
+
+// load question
+function loadQuestion(){
+  document.getElementById("question").innerText = questions[step];
+}
+
+// answer click
+function answer(){
+  step++;
+
+  if(step < questions.length){
+    loadQuestion();
+  } else {
+    document.getElementById("quiz").classList.add("hidden");
+    document.getElementById("result").classList.remove("hidden");
+
+    startHearts();
+  }
+}
+
+// hearts animation
+function startHearts(){
+  setInterval(() => {
+    let heart = document.createElement("div");
+    heart.className = "heart";
+    heart.innerText = "💖";
+    heart.style.left = Math.random() * window.innerWidth + "px";
+    document.body.appendChild(heart);
+
+    setTimeout(() => heart.remove(), 4000);
+  }, 300);
+}
+
+</script>
+
+</body>
+</html>
